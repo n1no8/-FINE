@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$FINE - This is Fine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS for animations and effects */
+        .gradient-bg {
+        /* Copy button styles */
+        .copy-btn {
+            transition: all 0.2s ease;
+        }
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            color: #ea580c !important;
+        }
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+        .copy-confirm {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .copy-confirm.show {
+            opacity: 1;
+        }
+            background: linear-gradient(135deg, #f97316 0%, #f59e0b 100%);
+        }
+        .token-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .token-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* How to Buy section card animations */
+        .buy-card {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        .buy-card:hover {
+            transform: scale(1.02) translateY(-3px);
+            box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.15);
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        
+        .graphic-placeholder {
+            display: block;
+            background-color: transparent;
+            z-index: 10;
+        }
+        
+        /* Marquee styles */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+    </style>
+</head>
+<body class="smooth-scroll bg-amber-50 font-sans">
+    <!-- Navigation Bar -->
+    <nav class="gradient-bg text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo Placeholder - Replace with your actual logo -->
+            <div class="flex items-center space-x-2">
+                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center"></a>
+                <span class="text-xl font-bold">$FINE</span>
+            </div>
+            
+            <!-- Navigation Links -->
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="hover:text-amber-200 transition duration-300">Home</a>
+                <a href="#about" class="hover:text-amber-200 transition duration-300">About</a>
+                <a href="#how-to-buy" class="hover:text-amber-200 transition duration-300">How to Buy</a>
+                <a href="#tokenomics" class="hover:text-amber-200 transition duration-300">Tokenomics</a>
+                <a href="#roadmap" class="hover:text-amber-200 transition duration-300">Roadmap</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden gradient-bg px-4 pb-4">
+            <div class="flex flex-col space-y-3">
+                <a href="#home" class="block py-2 hover:text-amber-200 transition duration-300">Home</a>
+                <a href="#about" class="block py-2 hover:text-amber-200 transition duration-300">About</a>
+                <a href="#how-to-buy" class="block py-2 hover:text-amber-200 transition duration-300">How to Buy</a>
+                <a href="#tokenomics" class="block py-2 hover:text-amber-200 transition duration-300">Tokenomics</a>
+                <a href="#roadmap" class="block py-2 hover:text-amber-200 transition duration-300">Roadmap</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center gradient-bg text-white">
+        <div class="container mx-auto px-4 py-20 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">This is <span class="text-amber-200">$FINE</span></h1>
+                <p class="text-xl mb-8">In a world of volatility, rugs, and endless new projects, $FINE represents that calm sip of coffee while the flames rise. We don’t pretend the market isn’t wild, we lean into it, together.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#how-to-buy" class="bg-white text-orange-600 px-6 py-3 rounded-full font-bold hover:bg-amber-100 transition duration-300">Buy Now</a>
+                    <a href="https://dexscreener.com/" class="border-2 border-white px-6 py-3 rounded-full font-bold hover:bg-white hover:text-orange-600 transition duration-300">Chart</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative w-64 h-64 md:w-80 md:h-80">
+                    <div class="absolute inset-0 bg-amber-300 rounded-full opacity-20 animate-pulse"></div>
+                    <div class="relative floating">
+                        <img src="https://i.imgur.com/8JTDo6r.png" alt="This is Fine meme" class="rounded-full border-4 border-white shadow-xl">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ticker Tape -->
+    <div class="bg-orange-500 text-white py-3 overflow-hidden">
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+                <span class="font-bold text-xl mr-8">$FINE</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-orange-600">About $FINE</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-amber-600">Embrace the Chaos</h3>
+                    <p class="text-gray-700 mb-6">Crypto is unpredictable. Markets pump, charts dump, and sometimes everything feels like it’s on fire, and that’s okay. At $FINE, we don’t fight the chaos, we celebrate it. Our community thrives on laughter, memes, and the shared understanding that no matter what the market does, we’ll sip our coffee and keep moving forward..</p>
+                    
+                    <h3 class="text-2xl font-bold mb-4 text-amber-600">Our Mission</h3>
+                    <p class="text-gray-700 mb-6">Our mission is simple: laugh through the flames. $FINE exists to unite people who see the chaos of crypto and choose to embrace it with humor. We’re building a community that thrives on memes, good vibes, and collective resilience, because sometimes the best way to survive the storm is to laugh at it.</p>
+                    
+                 <div class="flex items-center space-x-4">
+  <!-- Telegram Button -->
+  <a href="https://web.telegram.org/a/" class="bg-orange-400 text-white p-3 rounded-full hover:bg-orange-900 transition duration-300 flex items-center justify-center w-12 h-12">
+    <i class="fab fa-telegram text-xl"></i>
+  </a>
+
+  <!-- X (Twitter) Button -->
+  <a href="https://x.com/?lang=en" class="bg-black text-white p-3 rounded-full hover:bg-gray-800 transition duration-300 flex items-center justify-center w-12 h-12">
+    <svg viewBox="0 0 24 24" aria-hidden="true" class="w-6 h-6 fill-current">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+    </svg>
+  </a>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="token-card bg-amber-50 p-6 rounded-xl border border-amber-100">
+                        <div class="text-amber-600 mb-4">
+                            <i class="fas fa-fire text-3xl"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Meme Magic</h4>
+                        <p class="text-gray-600 text-sm">Powered by the iconic "This is Fine" meme that perfectly captures the crypto experience.</p>
+                    </div>
+                    <div class="token-card bg-amber-50 p-6 rounded-xl border border-amber-100">
+                        <div class="text-amber-600 mb-4">
+                            <i class="fas fa-users text-3xl"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Strong Community</h4>
+                        <p class="text-gray-600 text-sm">Join thousands of degens who understand that sometimes you just need to smile through the chaos.</p>
+                    </div>
+                    <div class="token-card bg-amber-50 p-6 rounded-xl border border-amber-100">
+                        <div class="text-amber-600 mb-4">
+                            <i class="fas fa-lock text-3xl"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Safe & Secure</h4>
+                        <p class="text-gray-600 text-sm">Contract audited and liquidity locked to ensure your peace of mind.</p>
+                    </div>
+                    <div class="token-card bg-amber-50 p-6 rounded-xl border border-amber-100">
+                        <div class="text-amber-600 mb-4">
+                            <i class="fas fa-chart-line text-3xl"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Growth Potential</h4>
+                        <p class="text-gray-600 text-sm">Strategic tokenomics designed for sustainable growth and community rewards.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Buy Section -->
+    <section id="how-to-buy" class="py-20 bg-amber-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-orange-600">How to Buy $FINE</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8 buy-card">
+                    <div class="md:flex">
+                        <div class="md:w-1/3 gradient-bg text-white p-8 flex flex-col justify-center">
+                            <h3 class="text-2xl font-bold mb-4">Get Ready</h3>
+                            <p>Follow these simple steps to join the $FINE community and embrace the meme magic.</p>
+                        </div>
+                        <div class="md:w-2/3 p-8">
+                            <div class="space-y-6">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 bg-amber-100 text-amber-600 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                                        <span class="font-bold">1</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold mb-2">Set Up a Wallet</h4>
+                                        <p class="text-gray-600">Download MetaMask or Trust Wallet and set it up on your device. Make sure to store your seed phrase securely!</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 bg-amber-100 text-amber-600 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                                        <span class="font-bold">2</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold mb-2">Get Some SOL</h4>
+                                        <p class="text-gray-600">Purchase Solana from an exchange like Coinbase or Binance, then send it to your wallet.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 bg-amber-100 text-amber-600 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                                        <span class="font-bold">3</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold mb-2">Connect to Raydium</h4>
+                                        <p class="text-gray-600">Go to Raydium and connect your wallet. Make sure you're on the Solana network.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 bg-amber-100 text-amber-600 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                                        <span class="font-bold">4</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold mb-2">Swap SOL for $FINE</h4>
+                                        <p class="text-gray-600">Enter our contract address and swap your SOL for $FINE.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center buy-card">
+                        <div class="text-orange-500 mb-4">
+                            <i class="fas fa-wallet text-4xl"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Contract Address</h4>
+                        <p class="text-gray-600 text-sm mb-4 font-mono bg-gray-100 p-2 rounded">BgpZ9...pump</p>
+                        <button class="copy-btn text-orange-500 hover:text-orange-600 text-sm font-bold flex items-center justify-center w-full">
+                            <i class="fas fa-copy mr-2"></i> Copy Address
+                        </button>
+                        <div class="copy-confirm hidden">Address copied!</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center buy-card">
+                        <div class="text-orange-500 mb-4">
+                            <i class="fas fa-exchange-alt text-4xl"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Buy on Raydium</h4>
+                        <p class="text-gray-600 text-sm mb-4">Trade SOL for $FINE directly</p>
+                        <a href="https://raydium.io/swap/" class="bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600 transition duration-300 inline-block text-sm">Go to Raydium</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center buy-card">
+                        <div class="text-orange-500 mb-4">
+                            <i class="fas fa-chart-pie text-4xl"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Track on DexScreener</h4>
+                        <p class="text-gray-600 text-sm mb-4">Monitor price and liquidity</p>
+                        <a href="https://dexscreener.com/" class="bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600 transition duration-300 inline-block text-sm">View Chart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tokenomics Section -->
+    <section id="tokenomics" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-orange-600">Tokenomics</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6 text-amber-600 flex items-center">
+                            <i class="fas fa-coins mr-3 text-yellow-400"></i>
+                            Token Details
+                        </h3>
+                        <div class="mb-6 bg-amber-50 p-6 rounded-xl border border-amber-100 shadow-lg hover:shadow-xl transition duration-300">
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="flex items-start">
+                                    <div class="bg-orange-100 text-orange-600 p-3 rounded-full mr-4">
+                                        <i class="fas fa-network-wired"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Network</p>
+                                        <p class="font-bold text-orange-600">Solana</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-orange-100 text-orange-600 p-3 rounded-full mr-4">
+                                        <i class="fas fa-boxes"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Total Supply</p>
+                                        <p class="font-bold text-orange-600">1,000,000,000</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-orange-100 text-orange-600 p-3 rounded-full mr-4">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Circulating Supply</p>
+                                        <p class="font-bold text-orange-600">1,000,000,000</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-orange-100 text-orange-600 p-3 rounded-full mr-4">
+                                        <i class="fas fa-file-contract"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Contract</p>
+                                        <p class="font-bold text-orange-600 truncate">BgpZ9...pump</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6 text-amber-600 flex items-center">
+                            <i class="fas fa-percentage mr-3 text-yellow-400"></i>
+                            Tax Structure
+                        </h3>
+                        <div class="mb-6 bg-amber-50 p-6 rounded-xl border border-amber-100 shadow-lg hover:shadow-xl transition duration-300">
+                            <div class="grid grid-cols-1 gap-6">
+                                <div class="flex items-start">
+                                    <div class="bg-orange-100 text-orange-600 p-3 rounded-full mr-4">
+                                        <i class="fas fa-arrow-down"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Buy Tax</p>
+                                        <p class="font-bold text-orange-600">0%</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-orange-100 text-orange-600 p-3 rounded-full mr-4">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Sell Tax</p>
+                                        <p class="font-bold text-orange-600">0%</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-16">
+                    <h3 id="roadmap" class="text-2xl font-bold mb-6 text-center text-amber-600">Roadmap</h3>
+                    <div class="relative">
+                        <!-- Timeline line -->
+                        <div class="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-gradient-to-b from-orange-400 to-amber-300 transform -translate-x-1/2"></div>
+                        
+                        <!-- Timeline items -->
+                        <div class="space-y-8 md:space-y-16">
+                            <!-- Phase 1 -->
+                            <div class="relative md:flex justify-center items-center">
+                                <div class="md:w-1/2 md:pr-16 mb-4 md:mb-0 md:text-right">
+                                    <div class="bg-white p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg hover:-translate-y-1 relative">
+                                        <a class="graphic-placeholder absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300"></a>
+                                        <h4 class="font-bold text-orange-600 mb-2"> Launch</h4>
+                                        <ul class="list-disc list-inside text-gray-700 space-y-1 text-sm">
+                                            <li>Token launch on Solana</li>
+                                            <li>Community building</li>
+                                            <li>Initial marketing push</li>
+                                            <li>First 1,000 holders</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="hidden md:block absolute left-1/2 w-6 h-6 rounded-full bg-orange-500 border-4 border-white transform -translate-x-1/2"></div>
+                                <div class="md:w-1/2 md:pl-16">
+                                    <div class="text-gray-400 font-bold">Phase 1</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Phase 2 -->
+                            <div class="relative md:flex justify-center items-center">
+                                <div class="md:w-1/2 md:pr-16 mb-4 md:mb-0 md:text-right">
+                                    <div class="text-gray-400 font-bold">Phase 2</div>
+                                </div>
+                                <div class="hidden md:block absolute left-1/2 w-6 h-6 rounded-full bg-orange-500 border-4 border-white transform -translate-x-1/2"></div>
+                                <div class="md:w-1/2 md:pl-16">
+                                    <div class="bg-white p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg hover:-translate-y-1 relative">
+                                        <a class="graphic-placeholder absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300"></a>
+                                        <h4 class="font-bold text-orange-600 mb-2">Growth</h4>
+                                        <ul class="list-disc list-inside text-gray-700 space-y-1 text-sm">
+                                            <li>CEX listings</li>
+                                            <li>Staking platform launch</li>
+                                            <li>Major marketing campaigns</li>
+                                            <li>Partnership announcements</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Phase 3 -->
+                            <div class="relative md:flex justify-center items-center">
+                                <div class="md:w-1/2 md:pr-16 mb-4 md:mb-0 md:text-right">
+                                    <div class="bg-white p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg hover:-translate-y-1 relative">
+                                        <a class="graphic-placeholder absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300"></a>
+                                        <h4 class="font-bold text-orange-600 mb-2">Expansion</h4>
+                                        <ul class="list-disc list-inside text-gray-700 space-y-1 text-sm">
+                                            <li>NFT collection launch</li>
+                                            <li>Merchandise store</li>
+                                            <li>Community events</li>
+                                            <li>Charity initiatives</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="hidden md:block absolute left-1/2 w-6 h-6 rounded-full bg-orange-500 border-4 border-white transform -translate-x-1/2"></div>
+                                <div class="md:w-1/2 md:pl-16">
+                                    <div class="text-gray-400 font-bold">Phase 3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+<footer class="gradient-bg text-white py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center space-x-2 mb-4">
+          <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center"></a>
+          <span class="text-xl font-bold">$FINE</span>
+        </div>
+        <p class="mb-4">The meme token that embraces the chaos of crypto with a smile.</p>
+
+        <!-- Social Buttons -->
+        <div class="flex space-x-4">
+          <!-- Telegram Button -->
+          <a href="https://web.telegram.org/a/" 
+             class="w-12 h-12 bg-orange-400 rounded-full flex items-center justify-center hover:bg-orange-600 transition duration-300">
+            <i class="fab fa-telegram text-xl text-white"></i>
+          </a>
+
+          <!-- X.com (Twitter) Button -->
+          <a href="https://x.com/?lang=en" 
+             class="w-12 h-12 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 transition duration-300">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="w-6 h-6 fill-current text-white">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div>
+        <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+        <ul class="space-y-2">
+          <li><a href="#home" class="hover:text-amber-200 transition duration-300" onclick="smoothScroll('#home')">Home</a></li>
+          <li><a href="#about" class="hover:text-amber-200 transition duration-300" onclick="smoothScroll('#about')">About</a></li>
+          <li><a href="#how-to-buy" class="hover:text-amber-200 transition duration-300" onclick="smoothScroll('#how-to-buy')">How to Buy</a></li>
+          <li><a href="#tokenomics" class="hover:text-amber-200 transition duration-300" onclick="smoothScroll('#tokenomics')">Tokenomics</a></li>
+          <li><a href="#roadmap" class="hover:text-amber-200 transition duration-300" onclick="smoothScroll('#roadmap')">Roadmap</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="relative border-t border-amber-400 mt-12 pt-8 text-center">
+      <div class="absolute right-0 bottom-full pb-4">
+        <a href="YOUR_LINK_HERE" class="group">
+          <span class="text-xl opacity-80 group-hover:opacity-100 group-hover:text-amber-300 transition-all duration-300">
+            Developed by <span class="font-bold text-2xl">BPC LɅBS</span>
+          </span>
+        </a>
+      </div>
+      <p>© 2023 $FINE Token. All rights reserved.</p>
+      <p class="mt-2 text-sm text-amber-400">This website is for entertainment purposes only. Not financial advice.</p>
+    </div>
+  </div>
+</footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-orange-500 text-white w-12 h-12 rounded-full shadow-lg hover:bg-orange-600 transition duration-300 hidden">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Smooth scroll function
+        function smoothScroll(target) {
+            const element = document.querySelector(target);
+            if (element) {
+                window.scrollTo({
+                    top: element.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Add smooth scroll to all navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                smoothScroll(this.getAttribute('href'));
+                
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Back to top button
+        window.addEventListener('scroll', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('back-to-top').addEventListener('click', function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+        // Copy contract address with confirmation
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const address = 'BgpZ9cXE2dRMTUPhroffbMQm3q8QTLpRorpHYeJspump';
+                navigator.clipboard.writeText(address).then(() => {
+                    // Show confirmation message
+                    const confirmMsg = this.nextElementSibling;
+                    confirmMsg.classList.remove('hidden');
+                    
+                    // Change button icon temporarily
+                    const icon = this.querySelector('i');
+                    icon.classList.replace('fa-copy', 'fa-check');
+                    
+                    setTimeout(() => {
+                        confirmMsg.classList.add('hidden');
+                        icon.classList.replace('fa-check', 'fa-copy');
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=MTDVEN/fine" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
