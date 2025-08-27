@@ -560,30 +560,33 @@
 </div>
                             
                             <!-- Phase 3 -->
-                            <div class="relative md:flex justify-center items-center">
-                                <div class="md:w-1/2 md:pr-16 mb-4 md:mb-0 md:text-right">
-                                    <div class="bg-white p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg hover:-translate-y-1 relative">
-                                        <img src="/images/number3.png" alt="Mascot with high fire">
-                                        <h4 class="font-bold text-orange-600 mb-2">Expansion</h4>
-                                        <ul class="list-disc list-inside text-gray-700 space-y-1 text-sm">
-                                            <li>NFT collection launch</li>
-                                            <li>Merchandise store</li>
-                                            <li>Community events</li>
-                                            <li>Charity initiatives</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="hidden md:block absolute left-1/2 w-6 h-6 rounded-full bg-orange-500 border-4 border-white transform -translate-x-1/2"></div>
-                                <div class="md:w-1/2 md:pl-16">
-                                    <div class="text-gray-400 font-bold">Phase 3</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="relative md:flex justify-center items-center">
+  <!-- Left content: Card (image left, text right-aligned) -->
+  <div class="md:w-1/2 md:pr-16 mb-4 md:mb-0 md:text-right flex justify-end">
+    <div class="bg-white p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg hover:-translate-y-1 relative flex items-center w-full">
+      <!-- Image on the left (explicit width to avoid Tailwind step jumps) -->
+      <img src="/images/number3.png" alt="Mascot with high fire" class="w-[135px] h-auto mr-4">
+      <!-- Text fills remaining space and is aligned to the right -->
+      <div class="flex-1 flex flex-col items-end">
+        <h4 class="font-bold text-orange-600 mb-2">Expansion</h4>
+        <ul class="list-disc list-inside text-gray-700 space-y-1 text-sm">
+          <li>NFT collection launch</li>
+          <li>Merchandise store</li>
+          <li>Community events</li>
+          <li>Charity initiatives</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline Dot -->
+  <div class="hidden md:block absolute left-1/2 w-6 h-6 rounded-full bg-orange-500 border-4 border-white transform -translate-x-1/2"></div>
+
+  <!-- Right label -->
+  <div class="md:w-1/2 md:pl-16">
+    <div class="text-gray-400 font-bold">Phase 3</div>
+  </div>
+</div>
 
     <!-- Footer -->
 <footer class="gradient-bg text-white py-12">
