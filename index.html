@@ -130,38 +130,113 @@
     </div>
   </section>
 
-  <!-- Ticker Tape -->
-  <div class="bg-orange-500 text-white py-3 overflow-hidden">
-    <div class="marquee-container">
-      <div class="marquee-content">
-        <!-- repeated tokens; trimmed for brevity but keep as many as you like -->
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
-        <span class="font-bold text-xl mr-8">$FINE</span>
+  <!-- Ticker Tape (gap-free, continuous) -->
+<div class="bg-orange-500 text-white py-3 overflow-hidden">
+  <div class="ticker-container">
+    <div class="ticker-track" style="--duration:28s;">
+      <!-- first copy -->
+      <div class="ticker-strip">
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+      </div>
+
+      <!-- duplicate copy (exact same content) -->
+      <div class="ticker-strip" aria-hidden="true">
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
+        <span class="ticker-item font-bold text-xl">$FINE</span>
       </div>
     </div>
   </div>
+</div>
+
+<style>
+/* Layout */
+.ticker-container { width: 100%; overflow: hidden; }
+.ticker-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 0;                 /* ensure no gap between strips */
+  animation: ticker-scroll var(--duration) linear infinite;
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Each repeated strip must be identical */
+.ticker-strip {
+  display: flex;
+  white-space: nowrap;    /* keep everything on one line */
+  flex-shrink: 0;         /* important: don't let it shrink */
+}
+
+/* Items: use padding (not margin) so edges don't create gaps */
+.ticker-item {
+  display: inline-block;
+  padding: 0 1.25rem;     /* horizontal spacing between items */
+  color: inherit;         /* keep text color from parent */
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+/* Animation: move left by half the full track (one strip) */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; transform: translateX(0); }
+}
+
+/* Optional tweaks: speed by changing --duration inline on .ticker-track */
+</style>
+
 
   <!-- About Section -->
   <section id="about" class="py-20 bg-white">
