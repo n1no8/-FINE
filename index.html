@@ -615,29 +615,38 @@
 
 
   <!-- Back to Top Button -->
-<button id="back-to-top" class="fixed bottom-6 right-6 bg-orange-500 text-white w-12 h-12 rounded-full shadow-lg hover:bg-orange-600 transition duration-300 opacity-0 pointer-events-none">
+<button id="back-to-top" class="fixed bottom-6 right-6 z-50 bg-orange-500 text-white w-12 h-12 rounded-full shadow-lg hover:bg-orange-600 transition-opacity duration-300 opacity-0">
   <i class="fas fa-arrow-up"></i>
 </button>
 
 <script>
-  // Smooth scroll function
-  function smoothScroll(target) {
-    const element = document.querySelector(target);
-    if (element) {
-      window.scrollTo({ top: element.offsetTop, behavior: 'smooth' });
+  // Back to top button behavior
+  const backBtn = document.getElementById('back-to-top');
+
+  window.addEventListener('scroll', () => {
+    if (!backBtn) return;
+    if (window.pageYOffset > 300) {
+      backBtn.style.opacity = 1;
+      backBtn.style.pointerEvents = 'auto';
+    } else {
+      backBtn.style.opacity = 0;
+      backBtn.style.pointerEvents = 'none';
     }
+  });
+
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }
 
-  // Anchor smooth scroll handlers (desktop + footer quick links)
+  // Smooth scroll for anchors (keep only this version)
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener("click", function(e) {
       e.preventDefault();
-      smoothScroll(this.getAttribute('href'));
-
-      // Close mobile menu if open
-      const mobileMenu = document.getElementById('mobile-menu');
-      if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.add('hidden');
+      const target = document.querySelector(this.getAttribute("href"));
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
       }
     });
   });
@@ -651,135 +660,76 @@
     });
   }
 
-  // Back to top button behavior
-  const backBtn = document.getElementById('back-to-top');
-  window.addEventListener('scroll', function() {
-    if (!backBtn) return;
-    if (window.pageYOffset > 300) {
-      backBtn.classList.remove('opacity-0', 'pointer-events-none');
-      backBtn.classList.add('opacity-100', 'pointer-events-auto');
-    } else {
-      backBtn.classList.remove('opacity-100', 'pointer-events-auto');
-      backBtn.classList.add('opacity-0', 'pointer-events-none');
-    }
+  // Copy contract address with confirmation
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const address = 'BgpZ9cXE2dRMTUPhroffbMQm3q8QTLpRorpHYeJspump';
+      navigator.clipboard.writeText(address).then(() => {
+        const confirmMsg = this.nextElementSibling;
+        if (confirmMsg) {
+          confirmMsg.classList.remove('hidden');
+          confirmMsg.classList.add('show');
+          setTimeout(() => { 
+            confirmMsg.classList.add('hidden'); 
+            confirmMsg.classList.remove('show'); 
+          }, 2000);
+        }
+        const icon = this.querySelector('i');
+        if (icon) { 
+          icon.classList.replace('fa-copy','fa-check'); 
+          setTimeout(()=> icon.classList.replace('fa-check','fa-copy'), 2000); 
+        }
+      });
+    });
   });
 
-  if (backBtn) {
-    backBtn.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-</script>
+  // Fade-up auto-assign + IntersectionObserver (unchanged)
+  document.addEventListener('DOMContentLoaded', function () {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
 
-  <script>
-    // Copy contract address with confirmation
-    document.querySelectorAll('.copy-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const address = 'BgpZ9cXE2dRMTUPhroffbMQm3q8QTLpRorpHYeJspump';
-        navigator.clipboard.writeText(address).then(() => {
-          const confirmMsg = this.nextElementSibling;
-          if (confirmMsg) {
-            confirmMsg.classList.remove('hidden');
-            confirmMsg.classList.add('show');
-            setTimeout(() => { confirmMsg.classList.add('hidden'); confirmMsg.classList.remove('show'); }, 2000);
-          }
-          const icon = this.querySelector('i');
-          if (icon) { icon.classList.replace('fa-copy','fa-check'); setTimeout(()=> icon.classList.replace('fa-check','fa-copy'), 2000); }
-        });
-      });
-    });
+    const selectors = [
+      'nav','header','section','footer','.ticker-container','.ticker-strip',
+      '.token-card','.buy-card','.bg-white','.grid > *','.max-w-7xl > *',
+      '.relative > .bg-white','.relative > .bg-amber-50','.relative > .rounded-xl'
+    ];
 
-    /* ===== Fade-up auto-assign + IntersectionObserver =====
-       This block:
-       - automatically adds the 'fade-up' class to major page elements so they animate on scroll
-       - observes .fade-up elements and adds .in-view when they intersect (then unobserves)
-    */
-    document.addEventListener('DOMContentLoaded', function () {
-      // If user prefers reduced motion, do nothing (no reveal)
-      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce) return;
-
-      // List of selectors to target for reveal animation (major blocks)
-      const selectors = [
-        'nav',
-        'header',
-        'section',
-        'footer',
-        '.ticker-container',
-        '.ticker-strip',
-        '.token-card',
-        '.buy-card',
-        '.bg-white',
-        '.grid > *',
-        '.max-w-7xl > *',
-        '.relative > .bg-white',
-        '.relative > .bg-amber-50',
-        '.relative > .rounded-xl'
-      ];
-
-      // Add fade-up class to matched elements (avoid adding to body/html)
-      const added = new Set();
-      selectors.forEach(sel => {
-        document.querySelectorAll(sel).forEach((el) => {
-          // avoid duplicates and some small UI elements
-          if (!added.has(el) && el !== document.body && el !== document.documentElement) {
-            el.classList.add('fade-up');
-            added.add(el);
-          }
-        });
-      });
-
-      // Also add fade-up to top-level direct children (broad coverage)
-      document.querySelectorAll('body > *').forEach(el => {
+    const added = new Set();
+    selectors.forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => {
         if (!added.has(el) && el !== document.body && el !== document.documentElement) {
           el.classList.add('fade-up');
           added.add(el);
         }
       });
+    });
 
-      // IntersectionObserver to toggle in-view
-      const targets = document.querySelectorAll('.fade-up');
-      if ('IntersectionObserver' in window && targets.length) {
-        const observer = new IntersectionObserver((entries, obs) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('in-view');
-              // unobserve to animate only once
-              obs.unobserve(entry.target);
-            }
-          });
-        }, {
-          root: null,
-          rootMargin: '0px 0px -10% 0px',
-          threshold: 0.12
-        });
-
-        targets.forEach((t, i) => {
-          // optional small stagger based on document order
-          t.style.transitionDelay = (i % 8) * 50 + 'ms';
-          observer.observe(t);
-        });
-      } else {
-        // Fallback: just reveal everything if IntersectionObserver not supported
-        document.querySelectorAll('.fade-up').forEach(el => el.classList.add('in-view'));
+    document.querySelectorAll('body > *').forEach(el => {
+      if (!added.has(el) && el !== document.body && el !== document.documentElement) {
+        el.classList.add('fade-up');
+        added.add(el);
       }
     });
-  </script>
-<script>
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute("href"));
-      if (target) {
-        target.scrollIntoView({
-          behavior: "smooth"
+
+    const targets = document.querySelectorAll('.fade-up');
+    if ('IntersectionObserver' in window && targets.length) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            obs.unobserve(entry.target);
+          }
         });
-      }
-    });
+      }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+
+      targets.forEach((t, i) => {
+        t.style.transitionDelay = (i % 8) * 50 + 'ms';
+        observer.observe(t);
+      });
+    } else {
+      document.querySelectorAll('.fade-up').forEach(el => el.classList.add('in-view'));
+    }
   });
 </script>
-
-
-
 </body>
 </html>
