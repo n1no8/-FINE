@@ -101,7 +101,7 @@
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <!-- Logo Placeholder - Replace with your actual logo -->
             <div class="flex items-center space-x-2">
-                <img src="/images/favicon1.png" class="w-20 h-20 flex items-center justify-center"></a>
+                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center"></a>
                 <span class="text-xl font-bold">$FINE</span>
             </div>
             
@@ -134,7 +134,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="min-h-screen flex items-center gradient-bg text-white">
-        <div class="container w-full px-4 py-20 flex flex-col md:flex-row items-center">
+        <div class="container mx-auto px-4 py-20 flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 mb-10 md:mb-0">
                 <h1 class="text-4xl md:text-6xl font-bold mb-6">This is <span class="text-amber-200">$FINE</span></h1>
                 <p class="text-xl mb-8">In a world of volatility, rugs, and endless new projects, $FINE represents that calm sip of coffee while the flames rise. We don’t pretend the market isn’t wild, we lean into it, together.</p>
@@ -142,46 +142,17 @@
                     <a href="#how-to-buy" class="bg-white text-orange-600 px-6 py-3 rounded-full font-bold hover:bg-amber-100 transition duration-300">Buy Now</a>
                     <a href="https://dexscreener.com/" class="border-2 border-white px-6 py-3 rounded-full font-bold hover:bg-white hover:text-orange-600 transition duration-300">Chart</a>
                 </div>
-        
-        <!-- Left Text Column -->
-        <div class="md:w-1/2 mb-10 md:mb-0">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                This is <span class="text-amber-200">$FINE</span>
-            </h1>
-            <p class="text-xl mb-8">
-                In a world of volatility, rugs, and endless new projects, $FINE represents that calm sip of coffee while the flames rise. We don’t pretend the market isn’t wild — we lean into it, together.
-            </p>
-            <div class="flex flex-wrap gap-4">
-                <a href="#how-to-buy" class="bg-white text-orange-600 px-6 py-3 rounded-full font-bold hover:bg-amber-100 transition duration-300">Buy Now</a>
-                <a href="https://dexscreener.com/" class="border-2 border-white px-6 py-3 rounded-full font-bold hover:bg-white hover:text-orange-600 transition duration-300">Chart</a>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative w-64 h-64 md:w-80 md:h-80">
+                    
+                    <div class="relative floating">
+                        <img src="/images/favicon.png" alt="This is Fine meme" class="rounded-full border-4 border-white shadow-xl">
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- Right Image Column -->
-        <div class="md:w-1/2 flex justify-center">
-            <!-- Parent container with floating animation -->
-            <div class="relative w-64 h-64 md:w-80 md:h-80 floating">
-                <!-- Glowing circle behind the image -->
-                <div class="absolute inset-0 bg-amber-300 rounded-full opacity-20"></div>
-                <!-- Meme image -->
-                <img src="/images/img2.png" alt="This is Fine meme" class="rounded-full border-4 border-white shadow-xl relative">
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- Floating animation -->
-<style>
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-
-.floating {
-  animation: float 3s ease-in-out infinite;
-}
-</style>
+    </section>
 
     <!-- Ticker Tape -->
     <div class="bg-orange-500 text-white py-3 overflow-hidden">
