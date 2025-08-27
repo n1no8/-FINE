@@ -615,53 +615,61 @@
 
 
   <!-- Back to Top Button -->
-  <button id="back-to-top" class="fixed bottom-6 right-6 bg-orange-500 text-white w-12 h-12 rounded-full shadow-lg hover:bg-orange-600 transition duration-300 hidden">
-    <i class="fas fa-arrow-up"></i>
-  </button>
+<button id="back-to-top" class="fixed bottom-6 right-6 bg-orange-500 text-white w-12 h-12 rounded-full shadow-lg hover:bg-orange-600 transition duration-300 opacity-0 pointer-events-none">
+  <i class="fas fa-arrow-up"></i>
+</button>
 
-  <script>
-    // Smooth scroll function
-    function smoothScroll(target) {
-      const element = document.querySelector(target);
-      if (element) {
-        window.scrollTo({ top: element.offsetTop, behavior: 'smooth' });
+<script>
+  // Smooth scroll function
+  function smoothScroll(target) {
+    const element = document.querySelector(target);
+    if (element) {
+      window.scrollTo({ top: element.offsetTop, behavior: 'smooth' });
+    }
+  }
+
+  // Anchor smooth scroll handlers (desktop + footer quick links)
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      smoothScroll(this.getAttribute('href'));
+
+      // Close mobile menu if open
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('hidden');
       }
-    }
-
-    // Anchor smooth scroll handlers (desktop + footer quick links)
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        smoothScroll(this.getAttribute('href'));
-
-        // Close mobile menu if open
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-          mobileMenu.classList.add('hidden');
-        }
-      });
     });
+  });
 
-    // Mobile menu toggle
-    const mobileBtn = document.getElementById('mobile-menu-button');
-    if (mobileBtn) {
-      mobileBtn.addEventListener('click', function() {
-        const menu = document.getElementById('mobile-menu');
-        if (menu) menu.classList.toggle('hidden');
-      });
-    }
-
-    // Back to top button
-    window.addEventListener('scroll', function() {
-      const backToTopButton = document.getElementById('back-to-top');
-      if (!backToTopButton) return;
-      if (window.pageYOffset > 300) backToTopButton.classList.remove('hidden');
-      else backToTopButton.classList.add('hidden');
+  // Mobile menu toggle
+  const mobileBtn = document.getElementById('mobile-menu-button');
+  if (mobileBtn) {
+    mobileBtn.addEventListener('click', function() {
+      const menu = document.getElementById('mobile-menu');
+      if (menu) menu.classList.toggle('hidden');
     });
-    const backBtn = document.getElementById('back-to-top');
-    if (backBtn) {
-      backBtn.addEventListener('click', function() { window.scrollTo({top:0, behavior:'smooth'}); });
+  }
+
+  // Back to top button behavior
+  const backBtn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function() {
+    if (!backBtn) return;
+    if (window.pageYOffset > 300) {
+      backBtn.classList.remove('opacity-0', 'pointer-events-none');
+      backBtn.classList.add('opacity-100', 'pointer-events-auto');
+    } else {
+      backBtn.classList.remove('opacity-100', 'pointer-events-auto');
+      backBtn.classList.add('opacity-0', 'pointer-events-none');
     }
+  });
+
+  if (backBtn) {
+    backBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+</script>
 
     // Copy contract address with confirmation
     document.querySelectorAll('.copy-btn').forEach(btn => {
